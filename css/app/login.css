@@ -1,0 +1,39 @@
+.login-back {
+	/* 	color: #63498C; */
+	/* 	background-color: #63498C; */
+	/*background: url(../..//img/login-bak.jpg) repeat center center;*/
+	 	background-image: linear-gradient(to bottom, #515577 0, #73589C 100%)
+}
+
+#container {
+	/* 	margin-rigth: 5%; */
+
+}
+
+.titl {
+	text-align: center;
+	color: white !important;
+}
+
+.quote {
+	color: white !important;
+}
+
+.navStyle {
+  padding-top: 10px;
+}
+
+body {
+
+-webkit-app-region : drag ;
+-webkit-user-select: none;
+
+}
+
+input {
+  -webkit-app-region: no-drag;
+}
+
+a {
+  -webkit-app-region: no-drag;
+}

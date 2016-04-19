@@ -1,0 +1,10 @@
+{
+  "name"    : "electron-react-sample",
+  "version" : "0.1.0",
+  "main"    : "main.js",
+  "dependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "electron-packager": "^6.0.2"
+  },
+}

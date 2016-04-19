@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/app/login.css" />
+</head>
+<script>
+    // 重命名 Electron 提供的 require
+    window.nodeRequire = require;
+    //delete window.require;
+    delete window.exports;
+    delete window.module;
+</script>
+
+<body style="background-color: #73589C;">
+    <div class="container login-back">
+        <div id="loginNav">
+        </div>
+        <div id="container">
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/react/browser.min.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery-2.2.2.js"></script>
+    <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/babel" src="../js/app/login.js"></script>
+</body>
+
+</html>
