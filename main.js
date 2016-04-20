@@ -1,6 +1,8 @@
 'use strict';
 const electron = require('electron');
 
+process.env.ELECTRON_HIDE_INTERNAL_MODULES = 'true'
+
 // electron.hideInternalModules();
 // Module to control application life.
 const app = electron.app;
@@ -13,9 +15,13 @@ const path = require('path');
 
 const ipcMain = electron.ipcMain;
 
+const Tray = electron.Tray;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+let appTray;
 
 function createWindow() {
     // Create the browser window.
@@ -44,10 +50,26 @@ function createWindow() {
     mainWindow.setThumbarButtons([]);
 }
 
+//系统托盘区图标
+function createTray(){
+  appTray = new Tray(__dirname + '/img/sample.ico');
+  appTray.setToolTip('Hi there!');
+
+  appTray.on('click', function() {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    }else {
+      mainWindow.show();
+    }
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   createWindow();
+
+  createTray();
 });
 
 // Quit when all windows are closed.
