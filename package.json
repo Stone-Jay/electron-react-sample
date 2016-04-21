@@ -6,11 +6,13 @@
         "react": "^15.0.1",
         "react-dom": "^15.0.1",
         "electron-packager": "^6.0.2",
-        "electron-prebuilt": "^0.37.6"
+        "electron-prebuilt": "^0.37.6",
+        "node-notifier": "^4.5.0"
     },
     "devDependencies": {
         "standard": "^6.0.8",
-        "electron-prebuilt": "^0.37.6"
+        "electron-prebuilt": "^0.37.6",
+        "node-notifier": "^4.5.0"
     },
     "scripts": {
         "test": "standard && node main.js",
@@ -20,7 +22,10 @@
         "ignore": [
             "/out",
             "/spec",
-            "/vendor"
+            "/vendor",
+            "/js/bootstrap",
+            "/js/jquery",
+            "/js/react"
         ],
         "env": {
             "browser": true

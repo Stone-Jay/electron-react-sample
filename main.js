@@ -1,10 +1,11 @@
 'use strict'
-// require("babel-register");
+// require('babel-register')
 const electron = require('electron')
+const notifier = require('node-notifier')
 
 process.env.ELECTRON_HIDE_INTERNAL_MODULES = 'true'
 
-// electron.hideInternalModules();
+// electron.hideInternalModules()
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -35,10 +36,10 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL(path.join('file://', __dirname, '/html/login.html'))
+  mainWindow.loadURL(path.join('file://', __dirname, '/src/html/login.html'))
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -53,7 +54,7 @@ function createWindow () {
 
 // 系统托盘区图标
 function createTray () {
-  appTray = new Tray(path.join(__dirname, '/img/sample.ico'))
+  appTray = new Tray(path.join(__dirname, '/src/img/sample.ico'))
   appTray.setToolTip('Hi there!')
 
   appTray.on('click', function () {
@@ -67,7 +68,7 @@ function createTray () {
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', function () {
+app.once('ready', function () {
   createWindow()
 
   createTray()
@@ -93,13 +94,27 @@ app.on('activate', function () {
 // ipc example at main.js
 ipcMain.on('loginCheck', function (event, args) {
   if (args.password === '111111') {
-    event.sender.send('loginCheck-reply', {result: true})
-    console.log(dialog.showMessageBox({
-      type: 'info',
-      message: 'weclome ' + args.userName
-    }))
+    event.sender.send('loginCheck-reply', {
+      result: true
+    })
+    sendNotic('Hi, ' + args.userName)
   } else {
-    event.sender.send('loginCheck-reply', {result: false})
-    console.log(dialog.showMessageBox('login failed'))
+    event.sender.send('loginCheck-reply', {
+      result: false
+    })
+    dialog.showMessageBox({
+      type: 'info',
+      message: args.userName + 'login failed !',
+      buttons: [],
+      title: 'login info'
+    })
   }
 })
+
+function sendNotic (msg) {
+  notifier.notify({
+    'title': 'Login Info',
+    'message': msg,
+    'wait': false
+  })
+}
