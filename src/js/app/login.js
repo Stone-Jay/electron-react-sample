@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { remote, ipcRenderer, dialog } from 'electron'
+import { remote, ipcRenderer } from 'electron'
 
 const app = remote.app
 const win = remote.getCurrentWindow()
@@ -12,7 +12,8 @@ class Login extends React.Component {
     super(props)
     this.state = {
       username: '',
-      pwd: ''
+      pwd: '',
+      canLogin: false
     }
   }
   usernameChange (e) {
@@ -23,11 +24,17 @@ class Login extends React.Component {
   }
   pwdChange (e) {
     // console.info('pwd change', e.target)
+    if (e.target.value.length >= 6) {
+      this.setState({canLogin: true})
+    }else {
+      this.setState({canLogin: false})
+    }
     this.setState({
       pwd: e.target.value
     })
   }
   login (e) {
+    this.setState({canLogin: false})
     var user = {
       userName: this.state.username,
       password: this.state.pwd
@@ -37,7 +44,15 @@ class Login extends React.Component {
       userName: user.userName,
       password: user.password
     })
+
+    ipcRenderer.once('loginCheck-reply', (e, args) => {
+      console.log('args: ', args)
+      if (!args.result) {
+        this.setState({canLogin: true})
+      }
+    })
   }
+
   render () {
     return (<div className='panel panel-info'>
               <div className='panel-heading'>
@@ -70,7 +85,7 @@ class Login extends React.Component {
                         type='button'
                         onClick={this.login.bind(this)}
                         className='btn btn-info'
-                        disabled={this.state.username.length === 0 || this.state.pwd.length < 6}
+                        disabled={this.state.canLogin === false}
                         value='Login' />
                     </div>
                   </div>
@@ -103,12 +118,3 @@ class LoginNav extends React.Component {
   }
 }
 ReactDOM.render(< LoginNav />, document.getElementById('loginNav'))
-
-ipcRenderer.on('loginCheck-reply', function (e, args) {
-  console.log('args: ', args)
-  if (args.result === true) {
-    console.log(dialog.showMessageBox('login success'))
-  } else {
-    console.log(dialog.showMessageBox('login failed'))
-  }
-})

@@ -21,13 +21,15 @@ const Tray = electron.Tray
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
+let loginWindow
+
 let mainWindow
 
 let appTray
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({
+  loginWindow = new BrowserWindow({
     width: 270,
     height: 360,
     title: 'Login',
@@ -36,10 +38,37 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL(path.join('file://', __dirname, '/src/html/login.html'))
+  loginWindow.loadURL(path.join('file://', __dirname, '/src/html/login.html'))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // loginWindow.webContents.openDevTools()
+
+  // Emitted when the window is closed.
+  loginWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    loginWindow = null
+  })
+
+  loginWindow.setThumbarButtons([])
+}
+
+function createMainWindow () {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: 'Index',
+    // frame: false,
+    movable: true
+  })
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(path.join('file://', __dirname, '/src/html/index.html'))
+
+  // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -48,6 +77,9 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  loginWindow.close()
+  createTray()
 
   mainWindow.setThumbarButtons([])
 }
@@ -70,8 +102,6 @@ function createTray () {
 // initialization and is ready to create browser windows.
 app.once('ready', function () {
   createWindow()
-
-  createTray()
 })
 
 // Quit when all windows are closed.
@@ -86,7 +116,7 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
+  if (loginWindow === null) {
     createWindow()
   }
 })
@@ -98,6 +128,8 @@ ipcMain.on('loginCheck', function (event, args) {
       result: true
     })
     sendNotic('Hi, ' + args.userName)
+    createMainWindow()
+    // loginWindow.close()
   } else {
     event.sender.send('loginCheck-reply', {
       result: false

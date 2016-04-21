@@ -1,53 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/app/login.css" />
-    <script>
-        // 重命名 Electron 提供的 require
-        window.nodeRequire = require;
-        //delete window.require;
-        delete window.exports;
-        delete window.module;
-    </script>
-</head>
-
-<body>
-    <div class="jumbotron login-back">
-        <div class="container">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-body" id="fileC">
-                    </div>
-                    <div class="panel-footer">electron file Object(added a 'path' attribute)</div>
-                </div>
-            </div>
-        </div>
-    </div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      Hi there !
     </div>
 
-    <script type="text/javascript" src="./js/react/browser.min.js"></script>
-    <script type="text/javascript" src="./js/jquery/jquery-2.2.2.js"></script>
-    <script type="text/javascript" src="./js/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/babel" src="./js/app/file.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("body").on('dragover', function(e) {
-                console.log("prevent default dragover event");
-                e.preventDefault();
-                return false;
-            });
-            $("body").on('dragleave', function(e) {
-                console.log("prevent default dragLeave event");
-                e.preventDefault();
-                return false;
-            });
-        });
-    </script>
-</body>
-
+  </body>
 </html>
