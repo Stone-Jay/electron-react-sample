@@ -5,8 +5,6 @@ import { remote, ipcRenderer } from 'electron'
 const app = remote.app
 const win = remote.getCurrentWindow()
 
-// const React = window.nodeRequire('react')
-// const ReactDOM = window.nodeRequire('react-dom')
 class Login extends React.Component {
   constructor (props) {
     super(props)
