@@ -2,7 +2,8 @@
 	/* 	color: #63498C; */
 	/* 	background-color: #63498C; */
 	/*background: url(../..//img/login-bak.jpg) repeat center center;*/
-	 	background-image: linear-gradient(to bottom, #515577 0, #73589C 100%)
+	 	/*background-image: linear-gradient(to bottom, #515577 0, #73589C 100%)*/
+		background: linear-gradient(45deg, #5CBFAC, #26AE90, #47639E)
 }
 
 #container {
@@ -27,7 +28,7 @@ body {
 
 -webkit-app-region : drag ;
 -webkit-user-select: none;
-
+background-color: #5CBFAC;
 }
 
 input {

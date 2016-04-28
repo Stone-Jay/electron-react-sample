@@ -1,5 +1,7 @@
 'use strict'
 // require('babel-register')
+// import electron from 'electron'
+// import notifier from 'node-notifier'
 const electron = require('electron')
 const notifier = require('node-notifier')
 
@@ -41,7 +43,7 @@ function createWindow () {
   loginWindow.loadURL(path.join('file://', __dirname, '/src/html/login.html'))
 
   // Open the DevTools.
-  // loginWindow.webContents.openDevTools()
+  loginWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   loginWindow.on('closed', () => {
