@@ -3,7 +3,6 @@
 // import electron from 'electron'
 // import notifier from 'node-notifier'
 const electron = require('electron')
-const notifier = require('node-notifier')
 
 process.env.ELECTRON_HIDE_INTERNAL_MODULES = 'true'
 
@@ -129,7 +128,6 @@ ipcMain.on('loginCheck', (event, args) => {
     event.sender.send('loginCheck-reply', {
       result: true
     })
-    sendNotic('Hi, ' + args.userName)
     createMainWindow()
     // loginWindow.close()
   } else {
@@ -144,11 +142,3 @@ ipcMain.on('loginCheck', (event, args) => {
     })
   }
 })
-
-function sendNotic (msg) {
-  notifier.notify({
-    'title': 'Login Info',
-    'message': msg,
-    'wait': false
-  })
-}

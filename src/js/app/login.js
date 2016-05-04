@@ -43,7 +43,7 @@ class Login extends React.Component {
       password: user.password
     })
 
-    ipcRenderer.once('loginCheck-reply', (e, args) => {
+    ipcRenderer.on('loginCheck-reply', (e, args) => {
       console.log('args: ', args)
       if (!args.result) {
         this.setState({canLogin: true})
